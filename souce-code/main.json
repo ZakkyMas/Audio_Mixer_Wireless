@@ -1,0 +1,1 @@
+{"wifi": {"SSID": "Admin", "PASS": "Admin", "mode": 0}, "web": {"USERNAME": "Admin", "PASSWORD": "Admin", "lock_IP": 0, "IP": 0}, "audio": {"inpu": 1, "loud": 0, "gain": 0, "volu": 51, "bass": 14, "treb": 14, "ba-r": 29, "ba-l": 29}, "Hardware": {"volt": 7.6, "free": 0, "use": 0, "freq": 0}}

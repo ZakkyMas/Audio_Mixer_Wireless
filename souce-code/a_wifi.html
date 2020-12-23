@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/bootstrap.min.css">
+        <script src="/bootstrap.min.js"></script>
+        <script src="/b_web.js"></script>
+        <title> Audio Mixer Wireless</title>
+        <style>
+            .navbar-brand, .nav-link{
+                font-size: 15px;
+                font-weight: bold;
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/home">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/audiomixer">Audio Mixer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/wifi">WiFi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profil">Profil</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="/login" onsubmit="return void_Keluar()">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                        Keluar
+                    </button>
+                </form>
+            </div>
+        </nav>
+        
+        <div class="container">
+            <form name="Wifi" action="/home" onsubmit="return void_Wifi()">
+                <hr>
+                <label for="ModeWiFi">WIFI : </label>
+                <select class="form-control" id="stat_0" name="ModeWiFi">
+                    <option value="0">MODE Access-Point</option>
+                    <option value="1">MODE Client</option>
+                </select>
+                <hr>
+
+                <h2> Username WiFi : 
+                <input type="text" name="UserWiFi" placeholder="Username" required="required" value=""/>
+                </h2>
+                <h2> Password WiFi : 
+                <input type="text" name="UserWiFiA" placeholder="Username" required="required" value=""/>
+                </h2>
+                <h2> Password WiFi : 
+                <input type="text" name="UserWiFiB" placeholder="Username" required="required" value=""/>
+                </h2>
+                <hr>
+
+                <button type="submit" class="btn btn-dark btn-lg btn-block">UPDATE</button>
+            </form>
+        </div>
+    </body>
+</html>

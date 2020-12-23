@@ -1,0 +1,23 @@
+{
+    "wifi": {
+        "SSID": "AUDIO MIXER",
+        "PASS": "12345678",
+        "mode": 0
+    },
+    "web":{
+        "USERNAME": "Admin",
+        "PASSWORD": "Admin",
+        "lock_IP": 0,
+        "IP": 0
+    },
+    "Audio":{
+        "inpu": 2, 
+        "loud": 1, 
+        "gain": 0, 
+        "volu": 61, 
+        "bass": 13, 
+        "treb": 13, 
+        "ba-r": 29, 
+        "ba-l": 29
+    }
+}
