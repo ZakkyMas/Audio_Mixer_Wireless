@@ -1,31 +1,26 @@
 {
     "wifi": {
-        "SSID": "Audio Mixer", 
+        "SSID": "Audio Mixer Wireless", 
         "mode": 0, 
         "mode_str": ["Access-Point", "Client"]
     }, 
-    "mem": {
-        "free": 0, 
-        "use": 0, 
-        "freq": 0
-    }, 
     "audio": {
-        "inpu": 2, 
-        "loud": 1, 
+        "inpu": 1, 
+        "loud": 0, 
         "gain": 0, 
-        "volu": 61, 
-        "bass": 13, 
-        "treb": 13, 
-        "ba-r": 29, 
-        "ba-l": 29, 
-        "inpu_str": ["RCA", "3.5mm", "Audio Bluetooth"], 
+        "volu": 0, 
+        "bass": 7, 
+        "treb": 7, 
+        "ba-r": 7, 
+        "ba-l": 7, 
+        "inpu_str": ["", "RCA", "3.5mm", "Audio Bluetooth"], 
         "loud_str": ["ENABLE", "DISABLE"], 
         "gain_str": ["11.25dB", "7.5dB", "3.75dB", "0dB"]
     }, 
-    "Hardware": {
-        "volt": 7.6,
-        "free": 0,
-        "use": 0,
+    "hardware": {
+        "volt": 7.6, 
+        "free": 0, 
+        "use": 0, 
         "freq": 0
     }
 }
