@@ -1,2 +1,2 @@
-# Schematic, list bahan, dan Harga Bahan
+# Schematic, List Bahan, dan Harga Bahan
 
