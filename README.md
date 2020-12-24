@@ -21,3 +21,4 @@ Beberapa Komponen Tambahan (membeli)
 4. Saklar On/Off
 5. Box sebagai tempat
 6. Beberapa Kapasitor dan Resistor
+7. PCB
