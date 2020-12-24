@@ -3,7 +3,8 @@
         "SSID": "Audio Mixer Wireless", 
         "PASS": "Admin", 
         "mode": 0
-    }, "web": {
+    }, 
+    "web": {
         "USERNAME": "Admin", 
         "PASSWORD": "Admin", 
         "lock_IP": 0, 
