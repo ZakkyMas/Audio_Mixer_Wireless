@@ -14,7 +14,7 @@ No | Bahan               | total |     barang bekas       |      beli baru      
 12.| Socket DC in        |  1x   |      0 Rupiah          |     500 Rupiah      |
 13.| Socket RCA          |  1x   |      0 Rupiah          |     500 Rupiah      |
 14.| Socket 3.5mm        |  1x   |      0 Rupiah          |     500 Rupiah      |
-15.| Battery             |  1x   |      0 Rupiah          |  60.000 Rupiah      |
+15.| Battery             |  2x   |      0 Rupiah          |  60.000 Rupiah      |
 16.| Saklar On/Off       |  1x   |  2.000 Rupiah          |   2.000 Rupiah      |
 17.| Box 19cm*13cm*4cm   |  1x   | 16.000 Rupiah          |  16.000 Rupiah      |
 18.| ESP8266             |  1x   | 24.000 Rupiah          |  24.000 Rupiah      |
