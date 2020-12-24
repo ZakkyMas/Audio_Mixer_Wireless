@@ -1,4 +1,4 @@
-No | Bahan               | total | digabung barang bekas  |  beli baru          |
+No | Bahan               | total |     barang bekas       |      beli baru      |
 ---|---------------------|-------|------------------------|---------------------|
 1. | IC HCF4052          |  1x   |      0 Rupiah          |   5.000 Rupiah      |
 2. | IC AMS1117-5.0      |  2x   |      0 Rupiah          |   1.000 Rupiah      |
@@ -14,7 +14,7 @@ No | Bahan               | total | digabung barang bekas  |  beli baru          
 12.| Socket DC in        |  1x   |      0 Rupiah          |     500 Rupiah      |
 13.| Socket RCA          |  1x   |      0 Rupiah          |     500 Rupiah      |
 14.| Socket 3.5mm        |  1x   |      0 Rupiah          |     500 Rupiah      |
-15.| Battery             |  1x   |       0 Rupiah         |  60.000 Rupiah      |
+15.| Battery             |  1x   |      0 Rupiah          |  60.000 Rupiah      |
 16.| Saklar On/Off       |  1x   |  2.000 Rupiah          |   2.000 Rupiah      |
 17.| Box 19cm*13cm*4cm   |  1x   | 16.000 Rupiah          |  16.000 Rupiah      |
 18.| ESP8266             |  1x   | 24.000 Rupiah          |  24.000 Rupiah      |
@@ -28,4 +28,4 @@ No | Bahan               | total | digabung barang bekas  |  beli baru          
    | Total                       | 79.500 Rupiah          | 166.800 Rupiah      |
 ---|-----------------------------|------------------------|---------------------|
 
-Selisih 57.300
+Selisih bahan yang didapat dengan barang bekas dan beli baru adalah 87.300 Rupiah
