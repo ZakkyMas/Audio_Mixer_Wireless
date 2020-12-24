@@ -1,10 +1,15 @@
-import json, socket, re
-try:
-    myHostName = socket.gethostname()
-    myIP = socket.gethostbyname(myHostName)
-    print("IP address of the localhost is {}".format(myIP))
-except:
-    pass
+import gc
+
+#PC only 
+import json, socket, re, time
+import random, psutil
+
+myHostName = socket.gethostname()
+myIP = socket.gethostbyname(myHostName)
+print("IP address of the localhost is {}".format(myIP))
+
+gc.enable()
+gc.collect()
 
 class WebServer:
     def __init__(self, system):
@@ -82,13 +87,13 @@ class WebServer:
         m_mode, m_link, data_g = self.Filter_Data(data_m)
         data_dll = self.Filter_File(data_m)
 
-        print("")
+        # print("")
         # print(1, Address)
         # print(2, data_m)
         # print(3, m_mode)
-        print(4, m_link)
-        print(5, data_g)
-        print(6, data_dll)
+        # print(4, m_link)
+        # print(5, data_g)
+        # print(6, data_dll)
 
         data_p, data_t = ["", "text/html"]
         if m_mode == 'GET':
@@ -96,13 +101,13 @@ class WebServer:
                 data_p = self.readFile('bootstrap.min.js')
                 data_t = "text/javascript"
 
-            elif m_link == '/b_login.js':
-                data_p = self.readFile('b_login.js')
-                data_t = "text/javascript"
-
             elif m_link == '/bootstrap.min.css':
                 data_p = self.readFile('bootstrap.min.css')
                 data_t = "text/css"
+
+            elif m_link == '/b_login.js':
+                data_p = self.readFile('b_login.js')
+                data_t = "text/javascript"
 
             elif self._stat[0] and self._stat[1] == Address:
                 if m_link == '/audiomixer':
@@ -147,7 +152,9 @@ class WebServer:
             if m_link == '/postJson':
                 file = json.loads(data_dll[1:-1])
                 if file['name'] == 'Login':
-                    if file['user'] == self._call.JSON_Main['web']['USERNAME']:
+                    if self._stat[0] and self._stat[1] != Address:
+                        pass
+                    elif file['user'] == self._call.JSON_Main['web']['USERNAME']:
                         if file['pass'] == self._call.JSON_Main['web']['PASSWORD']:
                             self._stat[0] = True
                             self._stat[1] = Address
@@ -166,42 +173,10 @@ class Wifi:
         self._call = system
         self._wifi = None
         self._call.LED(1)
-        try:
-            import utime as time
-            import network
-
-            if self._call.JSON_Main['wifi']['mode']:
-                self._wifi = network.WLAN(network.STA_IF)
-                self._wifi.active(True)
-                self._wifi.connect(self._call.JSON_Main['wifi']['SSID'], self._call.JSON_Main['wifi']['PASS'])
-                if not self._wifi.isconnected():
-                    for a in range(10):
-                        time.sleep(1)
-                        if self._wifi.isconnected():
-                            self._call.LED(2)
-                            self._call.wifi_connect = True
-                            break
-            else:
-                self._wifi = network.WLAN(network.AP_IF)
-                self._wifi.active(True)
-                self._wifi.config(essid=self._call.JSON_Main['wifi']['SSID'], password=self._call.JSON_Main['wifi']['PASS'])
-                self._call.LED(2)
-                self._call.wifi_connect = True
-            print("IP :", self._wifi.ifconfig()[0])
-        except:
-            self._call.wifi_connect = True
+        self._call.wifi_connect = True
 
     def Looping(self):
-        if self._call.JSON_Main['wifi']['mode']:
-            if not self._wifi.isconnected():
-                self._call.LED(1)
-                self._call.wifi_connect = False
-            else:
-                self._call.LED(2)
-                self._call.wifi_connect = True
-        else:
-            self._call.LED(2)
-            self._call.wifi_connect = True
+        pass
 
     def Exit(self):
         self._wifi = None
@@ -213,67 +188,19 @@ class Hardware:
         self._call.LED = self.LED
         self._led, self._adc, self._int0, self._int1 = [None, None, None, None]
 
-        try:
-            from machine import Pin, PWM, ADC, Timer
-            self._led = PWM(Pin(13), duty=0, freq=1)
-
-            Pin(16).off()
-            Pin(14).off()
-            self._adc = ADC(0)
-
-            self._int0 = Pin(12, Pin.IN)
-            self._int0.irq(handler=self.Inter0, trigger=Pin.IRQ_LOW_LEVEL)
-            self._int1 = Timer(1)
-            self._int1.init(mode=Timer.ONE_SHOT, period=1000)
-            self._int1.irq(handler=self.Inter1, trigger=Timer.TIMEOUT)
-        except:
-            pass
-
     def LED(self, val=0):
-        try:
-            if val == 0:
-                self._led.duty(0)
-            elif val == 1:
-                self._led.duty(512)
-                self._led.freq(1)
-            elif val == 2:
-                self._led.duty(512)
-                self._led.freq(5)
-            elif val == 3:
-                self._led.duty(1023)
-            elif val == 4:
-                self._led.duty(512)
-                self._led.freq(10)
-        except:
-            pass
+        pass
 
     def REBOOT(self):
-        try:
-            import machine 
-            machine.reset()
-        except:
-            pass
+        pass
 
-    def Inter1(self):
-        try:
-            import gc, machine
-            self._call.JSON_Main['hardware']['volt'] = (self._adc.read()*(1.0/1024)*10)
-            self._call.JSON_Web['hardware']['volt'] = self._call.JSON_Main['hardware']['volt']
-            self._call.JSON_Web['hardware']['free'] = gc.mem_free()
-            self._call.JSON_Web['hardware']['use'] = gc.mem_alloc()
-            self._call.JSON_Web['hardware']['freq'] = machine.freq()
-            self._call.Save()
-        except:
-            pass
-
-    def Inter0(self):
-        try:
-            import utime as time
-            self._call.RESET()
-            self._call.LED(4)
-            time.sleep(3)
-        except:
-            pass
+    def Looping(self):
+        self._call.JSON_Main['hardware']['volt'] = 6.0 + psutil.sensors_battery()[0] / 24
+        self._call.JSON_Web['hardware']['volt'] = self._call.JSON_Main['hardware']['volt']
+        self._call.JSON_Web['hardware']['free'] = psutil.virtual_memory()[4]
+        self._call.JSON_Web['hardware']['use'] = psutil.virtual_memory()[3]
+        self._call.JSON_Web['hardware']['freq'] = int("{}000".format(int(psutil.cpu_freq()[0])))
+        self._call.Save()
 
     def Exit(self):
         self._led, self._adc, self._int0, self._int1 = [None, None, None, None]
@@ -282,12 +209,6 @@ class Audio:
     def __init__(self, system):
         self._call = system
         self._call.AUDIO = self.AUDIO
-        self.twi = None
-        try: 
-            from machine import Pin, I2C
-            self.twi = I2C(sda=Pin(5), scl=Pin(4), freq=100000)
-        except:
-            pass
         self._call.AUDIO()
 
     def AUDIO(self):
@@ -299,16 +220,9 @@ class Audio:
         data[3] |= (self._call.JSON_Main['audio']['gain'] << 3) | (self._call.JSON_Main['audio']['loud'] << 2)
         data[4] = (6 << 4) | self._call.JSON_Main['audio']['bass']
         data[5] = (7 << 4) | self._call.JSON_Main['audio']['treb']
-
-        try:
-            for a in data:
-                self.twi.writeto(68, a)
-        except:
-            pass
-        del data
-
+ 
     def Exit(self):
-        self.twi = None
+        pass
 
 class Storage:
     def __init__(self, system):
@@ -346,6 +260,8 @@ class Storage:
 
 class System:
     def __init__(self):
+        gc.enable()
+        gc.collect()
         #File
         self.Save = None
         self.JSON_Web = None
@@ -360,16 +276,25 @@ class System:
         self.REBOOT = None
         self.RESET = None
 
-        #data   
+        #data
         self._data = []
-        self._data.append(Storage(self))
-        self._data.append(Audio(self))
-        self._data.append(Hardware(self))
-        self._data.append(Wifi(self))
-        self._data.append(WebServer(self))
+        try:
+            gc.collect()
+            print("Start....")
+            self._data.append(Storage(self))
+            print("function Storage Ready")
+            self._data.append(Audio(self))
+            print("function Audio Ready")
+            self._data.append(Hardware(self))
+            print("function Hardware Ready")
+            self._data.append(Wifi(self))
+            print("function Wifi Ready")
+            self._data.append(WebServer(self))
+            print("function WebServer Ready")
+        except:
+            print("ERROR LIBRARY")
 
     def Looping(self):
-        import gc 
         gc.enable()
         gc.collect()
         while True:
@@ -377,22 +302,20 @@ class System:
                 try:
                     gc.collect()
                     a.Looping()
-                    # if not self.wifi_connect:
-                        # break
                 except Exception as e:
-                    # print(e)
+                    print(e)
                     pass
 
     def Exit(self):
         for a in self._data:
             try:
+                gc.collect()
                 a.Exit()
             except:
                 pass
         self.Save, self.JSON_Web, self.JSON_Main, self.AUDIO, self.LED, self.REBOOT, self.RESET = [None, None, None, None, None, None, None]
         self.wifi_connect = False
         del self._data
-        import gc 
         gc.collect()
 
 Main = System()
