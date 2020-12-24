@@ -10,7 +10,7 @@
         "lock_IP": 0,
         "IP": 0
     },
-    "Audio":{
+    "audio":{
         "inpu": 2, 
         "loud": 0, 
         "gain": 0, 
@@ -20,7 +20,7 @@
         "ba-r": 7, 
         "ba-l": 7
     },
-    "Hardware": {
+    "hardware": {
         "volt": 7.6, 
         "free": 0, 
         "use": 0, 
