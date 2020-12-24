@@ -9,8 +9,8 @@ Bahan:
 8. USB Audio Bluetooth................1x
 9. Kapasitor 22u 16volt...............5x
 10. Kapasitor 2.2u 16volt............10x
-11. Kapasitor 100n 16volt.............7x
-12. Kapasitor 27n 16volt..............2x
+11. Kapasitor 100n....................7x
+12. Kapasitor 27n.....................2x
 13. Resistor 100k 1/4watt.............8x
 14. Resistor 10k 1/4watt..............4x
 15. Resistor 1k 1/4watt..............10x
