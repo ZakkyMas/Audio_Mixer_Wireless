@@ -1,6 +1,6 @@
 {
     "wifi": {
-        "SSID": "Admin", 
+        "SSID": "Audio Mixer Wireless", 
         "PASS": "Admin", 
         "mode": 0
     }, "web": {
@@ -19,7 +19,7 @@
         "ba-r": 29, 
         "ba-l": 29
     }, 
-    "Hardware": {
+    "hardware": {
         "volt": 7.6, 
         "free": 0, 
         "use": 0, 
