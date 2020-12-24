@@ -1,29 +1,29 @@
-No | Bahan		           | total | digabung barang bekas  |  beli baru          |
+No | Bahan               | total | digabung barang bekas  |  beli baru          |
 ---|---------------------|-------|------------------------|---------------------|
-1. | IC HCF4052          |  1x	 |      0 Rupiah          |   5.000 Rupiah      |
-2. | IC AMS1117-5.0      |  2x	 |      0 Rupiah          |   1.000 Rupiah      |
-3. | IC AMS1117-3.3      |  2x	 |      0 Rupiah          |     500 Rupiah      |
-4. | PAM8403             |  1x	 |      0 Rupiah          |   5.000 Rupiah      |
-5. | USB Audio Bluetooth |  1x	 |      0 Rupiah          |  10.000 Rupiah      |
-6. | Kapasitor 100n      |  7x	 |      0 Rupiah          |   2.000 Rupiah      |
-7. | Kapasitor 27n       |  2x	 |      0 Rupiah          |     500 Rupiah      |
-8. | Resistor 10k        |  4x	 |      0 Rupiah          |     500 Rupiah      |
-9. | Resistor 1k         | 10x	 |      0 Rupiah          |   1.000 Rupiah      |
-10.| Led                 |  1x	 |      0 Rupiah          |     300 Rupiah      |
-11.| Saklar Button       |  1x	 |      0 Rupiah          |     500 Rupiah      |
+1. | IC HCF4052          |  1x   |      0 Rupiah          |   5.000 Rupiah      |
+2. | IC AMS1117-5.0      |  2x   |      0 Rupiah          |   1.000 Rupiah      |
+3. | IC AMS1117-3.3      |  2x   |      0 Rupiah          |     500 Rupiah      |
+4. | PAM8403             |  1x   |      0 Rupiah          |   5.000 Rupiah      |
+5. | USB Audio Bluetooth |  1x   |      0 Rupiah          |  10.000 Rupiah      |
+6. | Kapasitor 100n      |  7x   |      0 Rupiah          |   2.000 Rupiah      |
+7. | Kapasitor 27n       |  2x   |      0 Rupiah          |     500 Rupiah      |
+8. | Resistor 10k        |  4x   |      0 Rupiah          |     500 Rupiah      |
+9. | Resistor 1k         | 10x   |      0 Rupiah          |   1.000 Rupiah      |
+10.| Led                 |  1x   |      0 Rupiah          |     300 Rupiah      |
+11.| Saklar Button       |  1x   |      0 Rupiah          |     500 Rupiah      |
 12.| Socket DC in        |  1x   |      0 Rupiah          |     500 Rupiah      |
-13.| Socket RCA          |  1x	 |      0 Rupiah          |     500 Rupiah      |
-14.| Socket 3.5mm        |  1x	 |      0 Rupiah          |     500 Rupiah      |
-15.| Battery             |  1x	 |  	  0 Rupiah          |  60.000 Rupiah      |
-16.| Saklar On/Off       |  1x	 |  2.000 Rupiah          |   2.000 Rupiah      |
-17.| Box 19cm*13cm*4cm   |  1x	 | 16.000 Rupiah          |  16.000 Rupiah      |
-18.| ESP8266             |  1x	 | 24.000 Rupiah          |  24.000 Rupiah      |
-19.| TP5100              |  1x	 | 20.000 Rupiah          |  20.000 Rupiah      |
-20.| PT2314              |  1x	 |  8.200 Rupiah          |   8.200 Rupiah      |
-21.| PCB                 |  1x	 |  5.000 Rupiah          |   5.000 Rupiah      |
-22.| Kapasitor 22u       | 10x	 |  2.000 Rupiah          |   2.000 Rupiah      |
+13.| Socket RCA          |  1x   |      0 Rupiah          |     500 Rupiah      |
+14.| Socket 3.5mm        |  1x   |      0 Rupiah          |     500 Rupiah      |
+15.| Battery             |  1x   |  	  0 Rupiah         |  60.000 Rupiah      |
+16.| Saklar On/Off       |  1x   |  2.000 Rupiah          |   2.000 Rupiah      |
+17.| Box 19cm*13cm*4cm   |  1x   | 16.000 Rupiah          |  16.000 Rupiah      |
+18.| ESP8266             |  1x   | 24.000 Rupiah          |  24.000 Rupiah      |
+19.| TP5100              |  1x   | 20.000 Rupiah          |  20.000 Rupiah      |
+20.| PT2314              |  1x   |  8.200 Rupiah          |   8.200 Rupiah      |
+21.| PCB                 |  1x   |  5.000 Rupiah          |   5.000 Rupiah      |
+22.| Kapasitor 22u       | 10x   |  2.000 Rupiah          |   2.000 Rupiah      |
 23.| Kapasitor 2.2u      |  7x   |  1.500 Rupiah          |   1.500 Rupiah      |
-24.| Resistor 100k       |  8x	 |    800 Rupiah          |     800 Rupiah      |
+24.| Resistor 100k       |  8x   |    800 Rupiah          |     800 Rupiah      |
 ---|---------------------|-------|------------------------|---------------------|
    | Total                       | 79.500 Rupiah          | 166.800 Rupiah      |
 ---|-----------------------------|------------------------|---------------------|
