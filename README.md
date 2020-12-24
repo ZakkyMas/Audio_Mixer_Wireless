@@ -12,11 +12,12 @@ Komponen yang didapat dari limbah elektronik yaitu
 7. Module Pam8403 yang didapat dari bekas project gagal saya
 8. Usb Audio Bluetooth yang didapat dari bekas project gagal saya
 9. IC ams1117-5.0 dan IC ams1117-3.3 yang didapat dari bekas project gagal saya
+10. Saklar button yang didapat dari mouse rusak
 
 Beberapa Komponen Tambahan (membeli)
 1. Module ESP8266  sebagai Processor
 2. IC PT2314 sebagai Kontroler audio mixer
 3. TP5100 sebagai kontroler pengisi daya battery
-4. Saklar
+4. Saklar On/Off
 5. Box sebagai tempat
 6. Beberapa Kapasitor dan Resistor
