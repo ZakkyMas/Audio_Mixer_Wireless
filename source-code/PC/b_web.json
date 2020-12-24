@@ -1,6 +1,6 @@
 {
     "wifi": {
-        "SSID": "Admin", 
+        "SSID": "Audio Mixer Wireless", 
         "mode": 0, 
         "mode_str": ["Access-Point", "Client"]
     }, 
