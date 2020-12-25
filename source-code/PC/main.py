@@ -39,11 +39,7 @@ class WebServer:
         return [m_mode, m_link, data_l]
 
     def Filter_File(self, text):
-        a = "\\r\\n\\r\\n"
-        b = text.find(a)
-        file = text[b+8:-1]
-        file = file.replace('\\', "")
-        return file
+        return re.split(r"\\r\\n", text)[-1][:-1]
 
     def Filter_Json(self, file):
         if file['name'] == 'Audio':
@@ -82,8 +78,16 @@ class WebServer:
 
     def Looping(self):
         Server, Address = self.s.accept()
+        data_m = Server.recv(2048)
+        
+        if not data_m:
+            Server.send('HTTP/1.1 200 OK\n')
+            Server.send('Serverection: close\n\n')
+            Server.close()
+            return 
+            
         Address = Address[0]
-        data_m = str(Server.recv(2048))
+        data_m = str(data_m)
         m_mode, m_link, data_g = self.Filter_Data(data_m)
         data_dll = self.Filter_File(data_m)
 
@@ -150,7 +154,7 @@ class WebServer:
 
         elif m_mode == 'POST':
             if m_link == '/postJson':
-                file = json.loads(data_dll[1:-1])
+                file = json.loads('{}'.format(data_dll).replace('\\', '')[1:-1])
                 if file['name'] == 'Login':
                     if self._stat[0] and self._stat[1] != Address:
                         pass
@@ -221,6 +225,9 @@ class Audio:
         data[4] = (6 << 4) | self._call.JSON_Main['audio']['bass']
         data[5] = (7 << 4) | self._call.JSON_Main['audio']['treb']
  
+    def Looping(self):
+        pass
+
     def Exit(self):
         pass
 
@@ -231,32 +238,37 @@ class Storage:
         self._call.RESET = self.RESET
 
         with open('main.json') as f:
-            self._call.JSON_Main = json.loads(f.read())
+            a = f.read()
+            self._call.JSON_Main = json.loads(a)
             f.close()
         with open('b_web.json') as f:
-            self._call.JSON_Web = json.loads(f.read())
+            a = f.read()
+            self._call.JSON_Web = json.loads(a)
             f.close()
 
     def SAVE(self):
         with open('main.json', 'w') as f:
-            f.write(json.dumps(self._call.JSON_Main))
+            json.dump(self._call.JSON_Main, f)
             f.close()
         with open('b_web.json', 'w') as f:
-            f.write(json.dumps(self._call.JSON_Web))
+            json.dump(self._call.JSON_Web, f)
             f.close()
 
     def RESET(self):
         with open('reset_main.json') as f:
             with open('main.json', 'w') as ff:
-                ff.write(f.read)
+                ff.write(f.read())
                 ff.close()
             f.close()
         with open('reset_b_web.json') as f:
             with open('b_web.json', 'w') as ff:
-                ff.write(f.read)
+                ff.write(f.read())
                 ff.close()
             f.close()
         self._call.REBOOT()
+
+    def Looping(self):
+        pass
 
 class System:
     def __init__(self):
@@ -291,8 +303,8 @@ class System:
             print("function Wifi Ready")
             self._data.append(WebServer(self))
             print("function WebServer Ready")
-        except:
-            print("ERROR LIBRARY")
+        except Exception as e:
+            print("ERROR LIBRARY :", e)
 
     def Looping(self):
         gc.enable()
@@ -303,7 +315,7 @@ class System:
                     gc.collect()
                     a.Looping()
                 except Exception as e:
-                    print(e)
+                    print("ERROR Looping :", e)
                     pass
 
     def Exit(self):
