@@ -328,7 +328,9 @@ class System:
         self.Save, self.JSON_Web, self.JSON_Main, self.AUDIO, self.LED, self.REBOOT, self.RESET = [None, None, None, None, None, None, None]
         self.wifi_connect = False
         del self._data
+        print("Exit....")
         gc.collect()
 
 Main = System()
 Main.Looping()
+Main.Exit()
