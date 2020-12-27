@@ -11,6 +11,7 @@
     - Memonitor Status Audio Mixer, Kapasitas Battery dan Kapasitas Penyimpanan ESP8266
     - Terpasang Power Amplifer dan Speaker 4Ohm 3Watt
     - Terpasang Lampu LED penanda Aktifitas ESP8266
+    - Terpasang tombol reset berfungsi mengembalikan ke posisi pengaturan pabrik
     
     Fistur Yang belum ada saat ini:
     - IC HCF4052 masih belum digunakan (Nota 1)
