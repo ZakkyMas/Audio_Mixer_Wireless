@@ -24,6 +24,10 @@ Beberapa Komponen Tambahan (membeli)
 7. papan PCB
 8. Beberapa Kapasitor dan Resistor
 
+Klik Datasheet    Berisi data karakteristik komponen
+Klik Foto         Berisi Foto
+Klik Schematic    Berisi skema dan bahan yang dibutuhkan
+Klik source-code  Berisi file code 
 
 
 Author : ZakkyMas (Zakky Mizanulfikri Ash Sodiq)
