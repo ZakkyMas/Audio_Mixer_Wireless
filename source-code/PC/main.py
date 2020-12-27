@@ -2,7 +2,9 @@ import gc
 
 #PC only 
 import json, socket, re, time
-import random, psutil
+import random, psutil, os
+
+os.popen('pip install psutil')
 
 myHostName = socket.gethostname()
 myIP = socket.gethostbyname(myHostName)
@@ -53,6 +55,7 @@ class WebServer:
             self._call.JSON_Main['audio']['ba-l'] = self._call.JSON_Web['audio']['ba-l'] = int(file['ba-l'])
             self._call.Save()
             return
+        
         if file['name'] == 'Wifi':
             self._call.JSON_Main['wifi']['mode'] = int(file['mode'])
             self._call.JSON_Main['wifi']['SSID'] = file['user']
@@ -63,10 +66,13 @@ class WebServer:
             self._stat[0] = False
             self._stat[1] = None
             return
+        
         if file['name'] == 'Profil':
             if self._call.JSON_Main['web']['USERNAME'] != file['userA']:
                 return
             if self._call.JSON_Main['web']['PASSWORD'] != file['passA']:
+                return
+            if file['passB'] != file['passC']:
                 return
 
             self._call.JSON_Main['web']['USERNAME'] = file['userB']
@@ -139,12 +145,27 @@ class WebServer:
                         data_p = json.dumps({"status":True})
                         data_t = "application/json"
                 
-                else:    
+                elif m_link == '/home':    
                     data_p = self.readFile('a_home.html')
                     data_t = "text/html"
-            else:
+                
+                else:
+                    Server.send('HTTP/1.1 301 OK\n'.encode())
+                    Server.send('Location: /home\n'.encode())
+                    Server.send('Serverection: close\n\n'.encode())
+                    Server.close()
+                    return
+
+            elif m_link == '/login':
                 data_p = self.readFile('a_login.html')
                 data_t = "text/html"
+                
+            else:
+                Server.send('HTTP/1.1 301 OK\n'.encode())
+                Server.send('Location: /login\n'.encode())
+                Server.send('Serverection: close\n\n'.encode())
+                Server.close()
+                return
             
             Server.send('HTTP/1.1 200 OK\n'.encode())
             Server.send('Content-Type: {}\n'.format(data_t).encode())
@@ -171,26 +192,24 @@ class WebServer:
             
             Server.send('HTTP/1.1 200 OK\n'.encode())
             Server.close()
+       del Address, m_mode, m_link, data_m, data_q, data_dll
+       gc.collect()
 
 class Wifi:
     def __init__(self, system):
         self._call = system
-        self._wifi = None
-        self._call.LED(1)
-        self._call.wifi_connect = True
 
     def Looping(self):
         pass
 
     def Exit(self):
-        self._wifi = None
+        pass
 
 class Hardware:
     def __init__(self, system):
         self._call = system
         self._call.REBOOT = self.REBOOT
         self._call.LED = self.LED
-        self._led, self._adc, self._int0, self._int1 = [None, None, None, None]
 
     def LED(self, val=0):
         pass
@@ -207,7 +226,7 @@ class Hardware:
         self._call.Save()
 
     def Exit(self):
-        self._led, self._adc, self._int0, self._int1 = [None, None, None, None]
+        pass
 
 class Audio:
     def __init__(self, system):
@@ -216,15 +235,8 @@ class Audio:
         self._call.AUDIO()
 
     def AUDIO(self):
-        data = [0, 0, 0, 0, 0, 0]
-        data[0] = self._call.JSON_Main['audio']['volu']
-        data[1] = (6 << 5) | self._call.JSON_Main['audio']['ba-l']
-        data[2] = (7 << 5) | self._call.JSON_Main['audio']['ba-r']
-        data[3] = (1 << 6) | self._call.JSON_Main['audio']['inpu']
-        data[3] |= (self._call.JSON_Main['audio']['gain'] << 3) | (self._call.JSON_Main['audio']['loud'] << 2)
-        data[4] = (6 << 4) | self._call.JSON_Main['audio']['bass']
-        data[5] = (7 << 4) | self._call.JSON_Main['audio']['treb']
- 
+        pass
+    
     def Looping(self):
         pass
 
@@ -238,20 +250,18 @@ class Storage:
         self._call.RESET = self.RESET
 
         with open('main.json') as f:
-            a = f.read()
-            self._call.JSON_Main = json.loads(a)
+            self._call.JSON_Main = json.loads(f.read())
             f.close()
         with open('b_web.json') as f:
-            a = f.read()
-            self._call.JSON_Web = json.loads(a)
+            self._call.JSON_Web = json.loads(f.read())
             f.close()
 
     def SAVE(self):
         with open('main.json', 'w') as f:
-            json.dump(self._call.JSON_Main, f)
+            f.write(json.dumps(self._call.JSON_Main))
             f.close()
         with open('b_web.json', 'w') as f:
-            json.dump(self._call.JSON_Web, f)
+            f.write(json.dumps(self._call.JSON_Web))
             f.close()
 
     def RESET(self):
@@ -278,9 +288,6 @@ class System:
         self.Save = None
         self.JSON_Web = None
         self.JSON_Main = None
-
-        #Variabel
-        self.wifi_connect = False
 
         #function
         self.AUDIO = None
@@ -326,7 +333,6 @@ class System:
             except:
                 pass
         self.Save, self.JSON_Web, self.JSON_Main, self.AUDIO, self.LED, self.REBOOT, self.RESET = [None, None, None, None, None, None, None]
-        self.wifi_connect = False
         del self._data
         print("Exit....")
         gc.collect()
