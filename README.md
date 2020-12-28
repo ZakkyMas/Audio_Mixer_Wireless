@@ -20,9 +20,8 @@ Beberapa Komponen Tambahan (membeli)
 3. TP5100 sebagai Pengisi daya battery
 4. Saklar On/Off
 5. Box sebagai tempat
-6. Beberapa Kapasitor dan Resistor
-7. papan PCB
-8. Beberapa Kapasitor dan Resistor
+6. papan PCB
+7. Beberapa Kapasitor dan Resistor
 
 Klik Datasheet    Berisi data karakteristik komponen
 Klik Foto         Berisi Foto
