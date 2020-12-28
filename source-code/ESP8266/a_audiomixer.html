@@ -17,69 +17,69 @@
                 <div class="column-all">
                     <div class="card">
                         <h1> Audio Mixer</h1>
-                        <form name="Audio" action="/home">
-                        <table>
-                            <tr>
-                                <td>STEREO</td>
-                                <td></td>
-                                <td>
-                                    <span id="stat_C-0">
-                                        <select class="select-all" id="stat_0" name="InputStereo">
-                                            <option value="1">RCA</option>
-                                            <option value="2">3.5mm</option>
-                                            <option value="3">Audio Bluetooth</option>
+                        <form action="/sendData">
+                            <table>
+                                <tr>
+                                    <td>STEREO</td>
+                                    <td></td>
+                                    <td>
+                                        <span id="stat_C-0">
+                                            <select class="select-all" id="stat_0" name="InputStereo">
+                                                <option value="1">RCA</option>
+                                                <option value="2">3.5mm</option>
+                                                <option value="3">Audio Bluetooth</option>
+                                            </select>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>LOUDNESS</td>
+                                    <td></td>
+                                    <td>
+                                        <select class="select-all" id="stat_1" name="InputLoud">
+                                            <option value="1">DISABLE</option>
+                                            <option value="0">ENABLE</option>
                                         </select>
-                                    </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>LOUDNESS</td>
-                                <td></td>
-                                <td>
-                                    <select class="select-all" id="stat_1" name="InputLoud">
-                                        <option value="1">DISABLE</option>
-                                        <option value="0">ENABLE</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>GAIN</td>
-                                <td></td>
-                                <td>
-                                    <select class="select-all" id="stat_2" name="InputGain">
-                                        <option value="3">0 dB</option>
-                                        <option value="2">3.75 dB</option>
-                                        <option value="1">7.5 dB</option>
-                                        <option value="0">11.25dB</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>VOLUME</td>
-                                <td><span id='stat_3'></span></td>
-                                <td><input class="slider" name="InputVolume" type="range" min="0" max="63" id="stat_4" /></td>
-                            </tr>
-                            <tr>
-                                <td>BASS</td>
-                                <td><span id='stat_5'></span></td>
-                                <td><input class="slider" name="InputBass"type="range" min="0" max="14" id="stat_6"/></td>
-                            </tr>
-                            <tr>
-                                <td>TREBLE</td>
-                                <td><span id='stat_7'></span></td>
-                                <td><input class="slider" name="InputTreble" type="range" min="0" max="14" id="stat_8"/></td>
-                            </tr>
-                            <tr>
-                                <td>BALANCE-R</td>
-                                <td><span id='stat_9'></span></td>
-                                <td><input class="slider" name="InputBalanceR" type="range" min="0" max="31" id="stat_10"/></td>
-                            </tr>
-                            <tr>
-                                <td>BALANCE-L</td>
-                                <td><span id='stat_11'></span></td>
-                                <th><input class="slider" name="InputBalanceL" type="range" min="0" max="31" id="stat_12"/></td>
-                            </th>
-                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>GAIN</td>
+                                    <td></td>
+                                    <td>
+                                        <select class="select-all" id="stat_2" name="InputGain">
+                                            <option value="3">0 dB</option>
+                                            <option value="2">3.75 dB</option>
+                                            <option value="1">7.5 dB</option>
+                                            <option value="0">11.25dB</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>VOLUME</td>
+                                    <td><span id='stat_3'></span></td>
+                                    <td><input class="slider" name="InputVolume" type="range" min="0" max="63" id="stat_4" /></td>
+                                </tr>
+                                <tr>
+                                    <td>BASS</td>
+                                    <td><span id='stat_5'></span></td>
+                                    <td><input class="slider" name="InputBass"type="range" min="0" max="14" id="stat_6"/></td>
+                                </tr>
+                                <tr>
+                                    <td>TREBLE</td>
+                                    <td><span id='stat_7'></span></td>
+                                    <td><input class="slider" name="InputTreble" type="range" min="0" max="14" id="stat_8"/></td>
+                                </tr>
+                                <tr>
+                                    <td>BALANCE-R</td>
+                                    <td><span id='stat_9'></span></td>
+                                    <td><input class="slider" name="InputBalanceR" type="range" min="0" max="31" id="stat_10"/></td>
+                                </tr>
+                                <tr>
+                                    <td>BALANCE-L</td>
+                                    <td><span id='stat_11'></span></td>
+                                    <th><input class="slider" name="InputBalanceL" type="range" min="0" max="31" id="stat_12"/></td>
+                                </th>
+                            </table>
                         <button type="submit" class="button_panjang">UPDATE</button>
                         </form>
                     </div>
