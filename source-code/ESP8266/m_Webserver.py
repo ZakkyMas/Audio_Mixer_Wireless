@@ -21,6 +21,7 @@ class WebServer:
         data = regex.split(data)
         m_mode = data[0][2:]
         regex = re.compile('\?')
+    
         data_l = regex.split(data[1])
         m_link = data_l[0]
         if len(data_l) > 1:
@@ -28,7 +29,24 @@ class WebServer:
             data_l = regex.split(data_l[1])
         else:
             data_l = []
+        del regex
         return [m_mode, m_link, data_l]
+
+    def ConventerJson(self, file, Address):
+        if len(file) < 1:
+            return
+        data = {}
+        regex = re.compile('=')
+        d = []
+        for a in file:
+            b, c = regex.split(a)
+            d.append(b)
+            data[b] = c
+        
+        if 'InputStereo' in d:
+            data['name'] = 'Audio'
+            self.Filter_Json(data)
+        del data, d, regex
 
     def Filter_Json(self, file):
         if file['name'] == 'Audio':
@@ -44,24 +62,7 @@ class WebServer:
             self._call.AUDIO()
             return
 
-    def ConventerJson(self, file, Address):
-        if len(file) < 1:
-            return
-        data = {}
-        regex = re.compile('=')
-        d = []
-        for a in file:
-            b, c = regex.split(a)
-            d.append(b)
-            data[b] = re.sub('\+', ' ', c)
-        
-        if 'InputStereo' in d:
-            data['name'] = 'Audio'
-            self.Filter_Json(data)
-        del data, d
-
     def Looping(self):
-        # self._call.LED(3)
         Server, Address = self.s.accept()
         data_m = Server.recv(2048)
         if not data_m:
@@ -69,7 +70,7 @@ class WebServer:
             data_m = ""
             return 
         
-        self._call.LED(3)
+        self._call.LED(0)
         Address = Address[0]
         data_m = str(data_m)
         m_mode, m_link, data_g = self.Filter_Data(data_m)
@@ -79,8 +80,8 @@ class WebServer:
         # print("ADDR :", Address)
         # print("OLD  :", data_m)
         # print("MODE :", m_mode)
-        # print("LINK :", m_link)
-        # print("DATA :", data_g)
+        print("LINK :", m_link)
+        print("DATA :", data_g)
         del data_m
         gc.collect()
 
@@ -101,7 +102,7 @@ class WebServer:
             data_t = "text/javascript"
 
         elif m_link == '/b_web.json':
-            data_p = self.readFile('b_web.json')
+            data_p = json.dumps(self._call.JSON_Web)
             data_t = "application/json"
         
         elif m_link == '/home':
@@ -113,6 +114,7 @@ class WebServer:
             Server.send('Location: /home\n')
             Server.send('Serverection: close\n\n')
             Server.close()
+            self._call.LED(2)
             return
         
         Server.send('HTTP/1.1 200 OK\n')
@@ -122,8 +124,8 @@ class WebServer:
         Server.close()
 
         
-        del Address, data_g, data_dll, m_link, m_mode
-        self._call.LED(2)
+        del Address, data_g, m_link, m_mode
+        self._call.LED(4)
         gc.collect()
 
     def Exit(self):
