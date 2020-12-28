@@ -16,10 +16,6 @@ class Hardware:
         Pin(16).off()
         Pin(14).off()
         self._adc = ADC(0)
-
-        self._int0 = Pin(12, Pin.IN)
-        self._int0.on()
-        self._int0.irq(handler=self.Inter0, trigger=Pin.IRQ_FALLING)
         gc.collect()
 
     def LED(self, val=0):
@@ -43,7 +39,7 @@ class Hardware:
     def Inter1(self):
         self._call.JSON_Web['hardware']['volt'] = (self._adc.read()*(1.0/1024)*10)
         self._call.JSON_Web['hardware']['free'] = gc.mem_free()
-        self._call.JSON_Web['hardware']['use'] = gc.mem_alloc()
+        self._call.JSON_Web['hardware']['use']  = gc.mem_alloc()
         self._call.JSON_Web['hardware']['freq'] = machine.freq()
         self._call.Save()
 
@@ -53,7 +49,9 @@ class Hardware:
         time.sleep(3)
 
     def Looping(self):
+        if(Pin(12, Pin.IN).value() == 0):
+            self.Inter0()
         self.Inter1()
 
     def Exit(self):
-        self._led, self._adc, self._int0, self._int1 = [None, None, None, None]
+        self._led, self._adc = [None, None]
