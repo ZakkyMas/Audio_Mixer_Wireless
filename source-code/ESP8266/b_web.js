@@ -51,74 +51,79 @@ function setRangeMod(id, id2, val, text){
     };
 }
 
-var current_link = "/" + window.location.href.split("/")[3].split('?')[0];
+function PageHome(){
+    var json_file = GetJson('/b_web.json'); 
+    replaceTarget("stat_A-0", function(){
+        return json_file['wifi']['mode_str'][json_file['wifi']['mode']]
+    });
+    replaceTarget("stat_A-1", json_file['wifi']['SSID'])
 
+    replaceTarget("stat_B-0", json_file['hardware']['volt']+' Volt')
+    replaceTarget("stat_B-1", function(){
+        return reMap(json_file['hardware']['volt'], 6.0, 8.4, 0, 100).toFixed(2) + "%";
+    });
+    replaceTarget("stat_B-2", function(){
+        return json_file['hardware']['free'] + ' Byte'
+    })
+    replaceTarget("stat_B-3", function(){
+        return json_file['hardware']['use'] + ' Byte'
+    })
+    replaceTarget("stat_B-4", function(){
+        return json_file['hardware']['freq'] + ' Hz'
+    })
+    
+    replaceTarget("stat_C-0", function(){
+        return json_file['audio']['inpu_str'][json_file['audio']['inpu']]
+    });
+    replaceTarget("stat_C-1", function(){
+        return json_file['audio']['loud_str'][json_file['audio']['loud']]
+    });
+    replaceTarget("stat_C-2", function(){
+        return json_file['audio']['gain_str'][json_file['audio']['gain']]
+    });
+    replaceTarget("stat_C-3", function(){
+        return reMap(json_file['audio']['volu'], 0, 63, -78.75, 0) + "dB";
+    });
+    replaceTarget("stat_C-4", function(){
+        var a = (json_file['audio']['bass'] - 7)*2;
+        if(isNaN(a)){
+            a = 0
+        }
+        if (a > 0){
+            a = '+' + a
+        }
+        return a + 'dB'
+    });
+    replaceTarget("stat_C-5", function(){
+        var a = (json_file['audio']['treb'] - 7)*2;
+        if(isNaN(a)){
+            a = 0
+        }
+        if (a > 0){
+            a = '+' + a
+        }
+        return a + 'dB'
+    });
+    replaceTarget("stat_C-6", function(){
+        return reMap(json_file['audio']['ba-r'], 0, 31, -38.75, 0) + "dB";
+    });
+    replaceTarget("stat_C-7", function(){
+        return reMap(json_file['audio']['ba-l'], 0, 31, -38.75, 0) + "dB";
+    });
+}
+
+var current_link = "/" + window.location.href.split("/")[3].split('?')[0];
 window.onload = function(){
     switch(current_link){
         case "/home":
+            PageHome();
             setInterval(function(){
-                var json_file = GetJson('web.json')
-                replaceTarget("stat_A-0", function(){
-                    return json_file['wifi']['mode_str'][json_file['wifi']['mode']]
-                });
-                replaceTarget("stat_A-1", json_file['wifi']['SSID'])
-    
-                replaceTarget("stat_B-0", json_file['hardware']['volt']+' Volt')
-                replaceTarget("stat_B-1", function(){
-                    return reMap(json_file['hardware']['volt'], 6.0, 8.4, 0, 100).toFixed(2) + "%";
-                });
-                replaceTarget("stat_B-2", function(){
-                    return json_file['hardware']['free'] + ' Byte'
-                })
-                replaceTarget("stat_B-3", function(){
-                    return json_file['hardware']['use'] + ' Byte'
-                })
-                replaceTarget("stat_B-4", function(){
-                    return json_file['hardware']['freq'] + ' Hz'
-                })
-                
-                replaceTarget("stat_C-0", function(){
-                    return json_file['audio']['inpu_str'][json_file['audio']['inpu']]
-                });
-                replaceTarget("stat_C-1", function(){
-                    return json_file['audio']['loud_str'][json_file['audio']['loud']]
-                });
-                replaceTarget("stat_C-2", function(){
-                    return json_file['audio']['gain_str'][json_file['audio']['gain']]
-                });
-                replaceTarget("stat_C-3", function(){
-                    return reMap(json_file['audio']['volu'], 0, 63, -78.75, 0) + "dB";
-                });
-                replaceTarget("stat_C-4", function(){
-                    var a = (json_file['audio']['bass'] - 7)*2;
-                    if(isNaN(a)){
-                        a = 0
-                    }
-                    if (a > 0){
-                        a = '+' + a
-                    }
-                    return a + 'dB'
-                });
-                replaceTarget("stat_C-5", function(){
-                    var a = (json_file['audio']['treb'] - 7)*2;
-                    if(isNaN(a)){
-                        a = 0
-                    }
-                    if (a > 0){
-                        a = '+' + a
-                    }
-                    return a + 'dB'
-                });
-                replaceTarget("stat_C-6", function(){
-                    return reMap(json_file['audio']['ba-r'], 0, 31, -38.75, 0) + "dB";
-                });
-                replaceTarget("stat_C-7", function(){
-                    return reMap(json_file['audio']['ba-l'], 0, 31, -38.75, 0) + "dB";
-                });
+                PageHome();
             }, 1000);
             break;
         
         case "/audiomixer":
+            var json_file = GetJson('/b_web.json'); 
             setSelectBoxByValue('stat_0', json_file['audio']['inpu']);
             setSelectBoxByValue('stat_1', json_file['audio']['loud']);
             setSelectBoxByValue('stat_2', json_file['audio']['gain']);
