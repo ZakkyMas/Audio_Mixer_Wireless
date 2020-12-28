@@ -1,5 +1,6 @@
 import os, sys
 
+os.popen('pip install esptool')
 os.popen('pip install adafruit-ampy')
 
 __all__ = []
