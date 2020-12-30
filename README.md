@@ -22,6 +22,16 @@ Beberapa Komponen Tambahan (membeli)
 5. Box sebagai tempat
 6. papan PCB
 7. Beberapa Kapasitor dan Resistor
+8. Timah
+
+Alat:
+1. Solder 
+2. Penyedot Timah
+3. Tang Potong
+4. Obeng + & -
+5. Lem Tembak
+6. USB Serial ch341
+7. Multi Tester
 
 Klik Datasheet    Berisi data karakteristik komponen
 Klik Foto         Berisi Foto
