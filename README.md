@@ -1,6 +1,7 @@
 # Audio_Mixer_Wireless
 
-    Project Audio Mixer Wireless merupakan sebuah project yang dibuat untuk memenuhi tugas Mata Kuliah Pengetahuan Lingkungan yaitu membuat produk dari limbah elektronik
+    Project Audio Mixer Wireless merupakan sebuah project yang dibuat untuk memenuhi tugas Mata Kuliah Pengetahuan 
+    Lingkungan yaitu membuat produk dari limbah elektronik
 
     Komponen yang didapat dari limbah elektronik yaitu
     1. (Nota 1) Battery 
