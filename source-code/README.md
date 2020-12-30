@@ -5,24 +5,23 @@
 
     File ESP8266 merupakan versi kecil file PC
     
-    Fistur Audio Mixer pada saat ini:
-    - 3 Audio input ("RCA", "3.5mm", dan "Audio Bluetooth")
-    - Mengontrol Audio Mixer (VOLUME, BASS, TREBLE, BALANCE)
-    - Memonitor Status Audio Mixer, Kapasitas Battery dan Kapasitas Penyimpanan ESP8266
-    - Terpasang Power Amplifer dan Speaker 4Ohm 3Watt
-    - Terpasang Lampu LED penanda Aktifitas ESP8266
-    - Terpasang tombol reset berfungsi mengembalikan ke posisi pengaturan pabrik
+    Keunggulan :
+    1. Terpasang didalam speaker 3Watt
+    2. Dikontrol melalui website dengan konektifitas WiFi 2.4G
+    3. Sampai 3 input sumber audio (RCA, Jack 3.5mm dan Audio Bluetooth)
+    4. Batery bisa di charger dan bertahan lebih dari 2 jam
+    5. Bisa dibawa kemana aja
+    6. Terpasang Lampu LED penanda aktifitas ESP8266
+    7. Terpasang tombol reset berfungsi mengembalikan ke posisi pengaturan awal
+    
+    Kelemahan :
+    1. Tidak ada pengamanan dua langkah sehingga semua orang yang terhubung wifi Audio Mixer bisa mengontrol alat ini
+    2. Tidak ada pengaturan Wifi sehingga tidak bisa mengubah SSID dan menambah Password
+    3. Tidak ada Output audio untuk tersambung dengan perangkat pengeras suara 
+    4. Sinyal Bluetooth dan Wifi kadang berselisih sehingga suara audio bluetooth tidak jelas atau putus-putus
     
     Fistur Yang belum ada saat ini:
     - IC HCF4052 masih belum digunakan (Nota 1)
     - Memonitor tegangan input dan status mengisi (Nota 1)
-    - Pengamanan dua langkah dengan mengisi username dan password (Nota 2)
-    - Mengubah WiFi sebagai Access-Point atau sebagai Client (Nota 2)
-    - Mengubah SSID WiFi dan PASSWORD WiFi masih belum tersedia (Nota 2)
-    - Mengubah username dan password pada pengamanan dua langkah (Nota 2)
     
     Nota 1: Masih tahap lanjut 
-    Nota 2: Pada saat ini memang fistur ini sengaja tidak dimasukan karena keterbatasnya chip ESP8266, 
-            jika dimasukan akan membuat error atau kerusakan pada system yang membuat chip ESP8266 memaksa 
-            reboot atau restart, pada error ini akan berlangsung secara terus menerus sampai diganti 
-            file yang ada didalamnya
