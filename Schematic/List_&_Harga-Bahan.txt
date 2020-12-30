@@ -28,4 +28,4 @@ No | Bahan               | total |     barang bekas       |      beli baru      
    | Total                       | 79.500 Rupiah          | 166.800 Rupiah      |
 ---|-----------------------------|------------------------|---------------------|
 
-Selisih bahan yang didapat dengan barang bekas dan beli baru adalah 87.300 Rupiah
+Selisih bahan yang didapat dengan gabungan barang bekas dan bahan yang semua beli baru adalah 87.300 Rupiah
