@@ -13,7 +13,7 @@ class Wifi:
 
         self._wifi = network.WLAN(network.AP_IF)
         self._wifi.active(True)
-        self._wifi.config(essid=self._call.JSON_Main['wifi']['SSID'])
+        self._wifi.config(essid=self._call.JSON_Main['wifi']['SSID'], authmode=0)
         self._wifi.ifconfig(('192.168.0.1', '255.255.255.0', '192.168.0.10', '8.8.8.8'))
         self._call.wifi_connect = True
         self._call.LED(2)
