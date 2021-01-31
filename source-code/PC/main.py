@@ -2,13 +2,8 @@ import gc
 
 #PC only 
 import json, socket, re, time
-import random, psutil, os
-
-os.popen('pip install psutil')
-
-myHostName = socket.gethostname()
-myIP = socket.gethostbyname(myHostName)
-print("IP address of the localhost is {}".format(myIP))
+import random, os
+import psutil
 
 gc.enable()
 gc.collect()
@@ -55,7 +50,6 @@ class WebServer:
             self._call.JSON_Main['audio']['ba-l'] = self._call.JSON_Web['audio']['ba-l'] = int(file['ba-l'])
             self._call.Save()
             return
-        
         if file['name'] == 'Wifi':
             self._call.JSON_Main['wifi']['mode'] = int(file['mode'])
             self._call.JSON_Main['wifi']['SSID'] = file['user']
@@ -66,13 +60,10 @@ class WebServer:
             self._stat[0] = False
             self._stat[1] = None
             return
-        
         if file['name'] == 'Profil':
             if self._call.JSON_Main['web']['USERNAME'] != file['userA']:
                 return
             if self._call.JSON_Main['web']['PASSWORD'] != file['passA']:
-                return
-            if file['passB'] != file['passC']:
                 return
 
             self._call.JSON_Main['web']['USERNAME'] = file['userB']
@@ -159,7 +150,7 @@ class WebServer:
             elif m_link == '/login':
                 data_p = self.readFile('a_login.html')
                 data_t = "text/html"
-                
+
             else:
                 Server.send('HTTP/1.1 301 OK\n'.encode())
                 Server.send('Location: /login\n'.encode())
@@ -192,8 +183,6 @@ class WebServer:
             
             Server.send('HTTP/1.1 200 OK\n'.encode())
             Server.close()
-       del Address, m_mode, m_link, data_m, data_q, data_dll
-       gc.collect()
 
 class Wifi:
     def __init__(self, system):
@@ -236,7 +225,7 @@ class Audio:
 
     def AUDIO(self):
         pass
-    
+ 
     def Looping(self):
         pass
 
@@ -297,6 +286,9 @@ class System:
 
         #data
         self._data = []
+        self.Init()
+
+    def Init(self):
         try:
             gc.collect()
             print("Start....")
@@ -314,29 +306,43 @@ class System:
             print("ERROR LIBRARY :", e)
 
     def Looping(self):
+        self.StartBrowser()
         gc.enable()
         gc.collect()
         while True:
-            for a in self._data:
-                try:
-                    gc.collect()
-                    a.Looping()
-                except Exception as e:
-                    print("ERROR Looping :", e)
-                    pass
+            self.Update()
 
-    def Exit(self):
+    def StartBrowser(self):
+        myHostName = socket.gethostname()
+        myIP = socket.gethostbyname(myHostName)
+        print("IP address of the localhost is {}".format(myIP))
+        a = os.popen("start http://{}".format(myIP))
+
+    def Update(self):
         for a in self._data:
             try:
                 gc.collect()
-                a.Exit()
-            except:
+                a.Looping()
+            except Exception as e:
+                print("ERROR Looping :", e)
                 pass
-        self.Save, self.JSON_Web, self.JSON_Main, self.AUDIO, self.LED, self.REBOOT, self.RESET = [None, None, None, None, None, None, None]
-        del self._data
+
+    def Exit(self):
+        try:
+            for a in self._data:
+                try:
+                    gc.collect()
+                    a.Exit()
+                except Exception as e:
+                    pass
+            self.Save, self.JSON_Web, self.JSON_Main, self.AUDIO, self.LED, self.REBOOT, self.RESET = [None, None, None, None, None, None, None]
+            del self._data
+        except Exception as e:
+            pass
         print("Exit....")
         gc.collect()
 
-Main = System()
-Main.Looping()
-Main.Exit()
+if __name__ == '__main__':
+    Main = System()
+    Main.Looping()
+    Main.Exit()
