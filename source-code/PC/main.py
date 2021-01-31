@@ -335,8 +335,6 @@ class System:
                     a.Exit()
                 except Exception as e:
                     pass
-            self.Save, self.JSON_Web, self.JSON_Main, self.AUDIO, self.LED, self.REBOOT, self.RESET = [None, None, None, None, None, None, None]
-            del self._data
         except Exception as e:
             pass
         print("Exit....")
