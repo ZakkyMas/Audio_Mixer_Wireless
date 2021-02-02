@@ -3,6 +3,9 @@ import gc
 #PC only 
 import json, socket, re, time
 import random, os
+
+os.system('start /wait cmd /c pip install psutil')
+
 import psutil
 
 gc.enable()
