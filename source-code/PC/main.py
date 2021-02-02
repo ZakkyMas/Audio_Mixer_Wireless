@@ -88,13 +88,13 @@ class WebServer:
         m_mode, m_link, data_g = self.Filter_Data(data_m)
         data_dll = self.Filter_File(data_m)
 
-        # print("")
-        # print(1, Address)
-        # print(2, data_m)
-        # print(3, m_mode)
-        # print(4, m_link)
-        # print(5, data_g)
-        # print(6, data_dll)
+        print("")
+        print(1, Address)
+        print(2, data_m)
+        print(3, m_mode)
+        print(4, m_link)
+        print(5, data_g)
+        print(6, data_dll)
 
         data_p, data_t = ["", "text/html"]
         if m_mode == 'GET':
@@ -128,7 +128,7 @@ class WebServer:
                     data_t = "text/javascript"
 
                 elif m_link == '/b_web.json':
-                    data_p = self.readFile('b_web.json')
+                    data_p = json.dumps(self._call.JSON_Web)
                     data_t = "application/json"
 
                 elif m_link == '/getJson':
@@ -183,6 +183,9 @@ class WebServer:
             
             Server.send('HTTP/1.1 200 OK\n'.encode())
             Server.close()
+
+    def Exit(self):
+        self.s.close()
 
 class Wifi:
     def __init__(self, system):
@@ -268,6 +271,9 @@ class Storage:
 
     def Looping(self):
         pass
+
+    def Exit(self):
+        self.SAVE()
 
 class System:
     def __init__(self):
