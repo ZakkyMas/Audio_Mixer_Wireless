@@ -28,18 +28,14 @@ class WebServer:
         return data
 
     def Filter_Data(self, data):
-        data = re.split('\s', data)
-        m_mode = data[0][2:]
-        data_l = re.split('\?', data[1])
-        m_link = data_l[0]
-        if len(data_l) > 1:
-            data_l = re.split('&', data_l[1])
-        else:
-            data_l = []
-        return [m_mode, m_link, data_l]
+        com_0 = re.compile(r'\r\n\r\n')
+        com_1 = re.compile(r'\r\n')
+        com_2 = re.compile(r'\s|\?|\=')
 
-    def Filter_File(self, text):
-        return re.split(r"\\r\\n", text)[-1][:-1]
+        Header, datas = com_0.split(data, 1)
+        Header = com_1.split(Header)
+        m_mode, m_link, *data_l, m_ver = com_2.split(Header[0])
+        return [m_mode, m_link, data_l, datas]
 
     def Filter_Json(self, file):
         if file['name'] == 'Audio':
@@ -78,18 +74,16 @@ class WebServer:
 
     def Looping(self):
         Server, Address = self.s.accept()
-        data_m = Server.recv(2048)
+        data_m = Server.recv(4096)
         
         if not data_m:
-            Server.send('HTTP/1.1 200 OK\n')
-            Server.send('Serverection: close\n\n')
+            Server.send('HTTP/1.1 301 OK\nLocation: /\nConnection: keep-alive\n\n'.encode())
             Server.close()
             return 
             
         Address = Address[0]
-        data_m = str(data_m)
-        m_mode, m_link, data_g = self.Filter_Data(data_m)
-        data_dll = self.Filter_File(data_m)
+        data_m = data_m.decode()
+        m_mode, m_link, data_g, data_dll = self.Filter_Data(data_m)
 
         print("")
         print(1, Address)
@@ -114,7 +108,11 @@ class WebServer:
                 data_t = "text/javascript"
 
             elif self._stat[0] and self._stat[1] == Address:
-                if m_link == '/audiomixer':
+                if m_link == '/getdata':
+                    data_p = json.dumps(self._call.JSON_Web)
+                    data_t = "application/json"
+
+                elif m_link == '/audiomixer':
                     data_p = self.readFile('a_audiomixer.html')
                     data_t = "text/html"
 
@@ -129,24 +127,13 @@ class WebServer:
                 elif m_link == '/b_web.js':
                     data_p = self.readFile('b_web.js')
                     data_t = "text/javascript"
-
-                elif m_link == '/b_web.json':
-                    data_p = json.dumps(self._call.JSON_Web)
-                    data_t = "application/json"
-
-                elif m_link == '/getJson':
-                    if 'name=Login' in data_g:
-                        data_p = json.dumps({"status":True})
-                        data_t = "application/json"
                 
                 elif m_link == '/home':    
                     data_p = self.readFile('a_home.html')
                     data_t = "text/html"
                 
                 else:
-                    Server.send('HTTP/1.1 301 OK\n'.encode())
-                    Server.send('Location: /home\n'.encode())
-                    Server.send('Serverection: close\n\n'.encode())
+                    Server.send('HTTP/1.1 301 OK\nLocation: /home\nConnection: keep-alive\n\n'.encode())
                     Server.close()
                     return
 
@@ -155,15 +142,11 @@ class WebServer:
                 data_t = "text/html"
 
             else:
-                Server.send('HTTP/1.1 301 OK\n'.encode())
-                Server.send('Location: /login\n'.encode())
-                Server.send('Serverection: close\n\n'.encode())
+                Server.send('HTTP/1.1 301 OK\nLocation: /login\nConnection: keep-alive\n\n'.encode())
                 Server.close()
                 return
             
-            Server.send('HTTP/1.1 200 OK\n'.encode())
-            Server.send('Content-Type: {}\n'.format(data_t).encode())
-            Server.send('Serverection: close\n\n'.encode())
+            Server.send('HTTP/1.1 200 OK\nContent-Type: {}\nConnection: keep-alive\n\n'.format(data_t).encode())
             Server.sendall(data_p.encode())
             Server.close()
 
@@ -184,7 +167,10 @@ class WebServer:
                 elif self._stat[0] and self._stat[1] == Address:
                     self.Filter_Json(file)
             
-            Server.send('HTTP/1.1 200 OK\n'.encode())
+            Server.send('HTTP/1.1 200 OK\n\n'.encode())
+            Server.close()
+        else:
+            Server.send('HTTP/1.1 404 OK\n\n'.encode())
             Server.close()
 
     def Exit(self):
@@ -325,7 +311,7 @@ class System:
         myHostName = socket.gethostname()
         myIP = socket.gethostbyname(myHostName)
         print("IP address of the localhost is {}".format(myIP))
-        a = os.popen("start http://{}".format(myIP))
+        os.system("start http://{}".format(myIP))
 
     def Update(self):
         for a in self._data:
@@ -334,7 +320,6 @@ class System:
                 a.Looping()
             except Exception as e:
                 print("ERROR Looping :", e)
-                pass
 
     def Exit(self):
         try:
@@ -342,7 +327,7 @@ class System:
                 try:
                     gc.collect()
                     a.Exit()
-                except Exception as e:
+                except Exception:
                     pass
         except Exception as e:
             pass

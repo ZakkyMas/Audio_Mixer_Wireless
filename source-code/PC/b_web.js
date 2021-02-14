@@ -135,7 +135,12 @@ function void_Keluar(){
 }
 
 function PageHome(){
-    var json_file = GetJson("/b_web.json");
+    var json_file;
+    try {
+        json_file = GetJson("/getdata");
+    } catch (error) {
+        return
+    }
     replaceTarget("stat_A-0", function(){
     return json_file['wifi']['mode_str'][json_file['wifi']['mode']]
     });
@@ -206,7 +211,7 @@ window.onload = function(){
             break;
         
         case "/audiomixer":
-            var json_file = GetJson("/b_web.json");
+            var json_file = GetJson("/getdata");
             setSelectBoxByValue('stat_0', json_file['audio']['inpu']);
             setSelectBoxByValue('stat_1', json_file['audio']['loud']);
             setSelectBoxByValue('stat_2', json_file['audio']['gain']);
@@ -218,7 +223,7 @@ window.onload = function(){
             break;
 
         case "/wifi":
-            var json_file = GetJson("/b_web.json");
+            var json_file = GetJson("/getdata");
             setSelectBoxByValue('stat_0', json_file['wifi']['mode']);
             break;
 
