@@ -5,7 +5,7 @@ import utime as time
 from machine import Pin
 
 res = 0
-for a in range(20):
+for a in range(10):
     if not Pin(0, Pin.IN).value():
         res = 1
         break

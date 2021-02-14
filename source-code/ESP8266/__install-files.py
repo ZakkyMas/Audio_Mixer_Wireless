@@ -1,38 +1,63 @@
-import os, sys
-
-os.popen('pip install esptool')
-os.popen('pip install adafruit-ampy')
-
-__all__ = []
-
-arg = sys.argv
-if '--port' in arg:
-    pass
-else:
-    print("--port!!")
-    sys.exit()
-
+import os, sys, re, subprocess
+com = re.compile(r'^com[0-9]+$')
 data = os.listdir()
 port = ""
+__all__ = []
+Status = True
+Com_1 = 'esptool.py --port {} erase_flash'
 
-for a in data:
-    if a == '_install-files.py':
+print('Install "esptool"\n')
+os.system('pip install esptool')
+print('')
+
+print('Install "adafruit-ampy"\n')
+os.system('pip install adafruit-ampy')
+os.system('cls')
+print('Install "esptool" & "adafruit-ampy" Done\n')
+
+while Status:
+    a = input('Input Port : ').lower()
+    if com.match(a) == None:
+        print('Error name port')
         continue
-    __all__.append(a)
+    port = a
+    break
 
-try:
-    for a in range(len(arg)):
-        if arg[a] == '--port':
-            port = arg[a+1]
-            break
-except:
-    print("--port!!")
-    sys.exit()
-
-for a in __all__:
+if Status:
+    os.system('cls')
     try:
-        os.popen('ampy --port {} put {}'.format(port, a)).read()
-        print("Install success :", a)
-    except:
-        print("Install error :", a)
-        break
+        print('Flashing ESP8266')
+        subprocess.run(['esptool.py --port {} erase_flash'.format(port)], check=True)
+    except Exception:
+        print('Error Flashing ESP8266')
+        Status=False
+
+if Status:
+    try:
+        print('Flashing ESP8266')
+        subprocess.run(['esptool.py --port {} --baud 460800 write_flash --flash_size=detect 0 esp8266-20210202-v1.14.bin'.format(port)], check=True)
+    except Exception:
+        print('Error Flashing ESP8266')
+        Status=False
+
+if Status:
+    os.system('cls')
+    print('Flashing ESP8266 Done')
+
+if Status:
+    for a in data:
+        if a == '__install-files.py':
+            continue
+        elif a == 'esp8266-20210202-v1.14.bin':
+            continue
+        __all__.append(a)
+
+    for a in __all__:
+        try:
+            subprocess.run(['ampy --port {} put {}'.format(port, a)], check=True)
+            print("Install success :", a)
+        except:
+            print("Install error :", a)
+            Status=False
+
+input('press any key to exit')
